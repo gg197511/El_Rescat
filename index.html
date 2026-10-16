@@ -43,36 +43,13 @@
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
-      padding: 15px 20px; 
-    }
-
-    .logo-title { 
-      display: flex; 
-      align-items: center; 
-      gap: 14px; 
+      padding: 12px 20px; 
     }
 
     .logo-title h1 { 
-      font-size: 1.5rem; 
+      font-size: 1.6rem; 
       color: var(--secondary-color); 
       letter-spacing: 1px; 
-    }
-
-    /* SELLOS CORPORATIVOS EN CABECERA (+15% DE TAMAÑO: 48px) */
-    .brand-seal {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 2px solid var(--secondary-color);
-      background-color: #ffffff;
-      object-fit: cover;
-      padding: 2px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      transition: transform 0.3s ease;
-    }
-
-    .brand-seal:hover {
-      transform: scale(1.1);
     }
 
     .nav-links { 
@@ -98,62 +75,93 @@
       color: var(--secondary-color); 
     }
 
-    /* BANNER HERO PANORÁMICO CON IMAGEN 'pont de la vila.jpg' */
+    /* BANNER HERO COMPACTO CON LOGOS LATERALES GRANDES */
     .hero { 
-      background: linear-gradient(rgba(107, 29, 47, 0.8), rgba(43, 43, 43, 0.85)), url('pont de la vila.jpg') center/cover no-repeat; 
+      background: linear-gradient(rgba(107, 29, 47, 0.82), rgba(43, 43, 43, 0.88)), url('pont de la vila.jpg') center/cover no-repeat; 
       color: white; 
-      text-align: center; 
-      padding: 85px 20px; 
+      padding: 25px 20px; /* Reducido para no ocupar media pantalla */
       border-bottom: 4px solid var(--secondary-color); 
     }
 
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    /* LOGOS GRANDES LATERALES EN LA CABECERA */
+    .hero-side-logo {
+      width: 95px;
+      height: 95px;
+      border-radius: 50%;
+      border: 3px solid var(--secondary-color);
+      background-color: #ffffff;
+      object-fit: cover;
+      padding: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-side-logo:hover {
+      transform: scale(1.05);
+    }
+
+    .hero-text-content {
+      flex: 1;
+      text-align: center;
+    }
+
     .hero h2 { 
-      font-size: 2.8rem; 
+      font-size: 2.2rem; 
       color: var(--secondary-color); 
-      margin-bottom: 10px; 
+      margin-bottom: 6px; 
       text-shadow: 2px 2px 4px rgba(0,0,0,0.7); 
     }
 
     .hero p { 
-      font-size: 1.2rem; 
-      max-width: 800px; 
-      margin: 0 auto; 
+      font-size: 1rem; 
+      max-width: 650px; 
+      margin: 0 auto 10px auto; 
       text-shadow: 1px 1px 3px rgba(0,0,0,0.7); 
     }
 
-    .hero-seals {
+    /* MARCADORES CON ESCUDOS MUNICIPALES DE BAGÀ Y VILA-SECA */
+    .hero-town-badges {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 25px;
-      margin-top: 20px;
+      gap: 15px;
+      margin-top: 8px;
     }
 
-    .hero-seal-item {
+    .town-badge {
       display: flex;
       align-items: center;
-      gap: 10px;
-      font-size: 0.9rem;
-      color: var(--secondary-color);
-      font-weight: 600;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--secondary-color);
     }
 
-    /* SELLOS EN HERO (+15% DE TAMAÑO: 63px) */
-    .hero-seal-img {
-      width: 63px;
-      height: 63px;
-      border-radius: 50%;
-      border: 2px solid var(--secondary-color);
-      background: white;
-      padding: 3px;
+    .town-escudo {
+      width: 22px;
+      height: 26px;
+      object-fit: contain;
     }
 
     /* CONTENEDOR PRINCIPAL */
     main { 
       max-width: 1200px; 
-      margin: 40px auto; 
+      margin: 30px auto; 
       padding: 0 20px; 
       min-height: 500px; 
     }
@@ -301,8 +309,10 @@
       font-size: 0.9rem; 
     }
 
-    /* RESPONSIVE PARA DISPOSITIVOS MÓVILES */
-    @media (max-width: 992px) { 
+    /* ADAPTACIÓN RESPONSIVE */
+    @media (max-width: 850px) {
+      .hero-container { flex-direction: column; }
+      .hero-side-logo { width: 75px; height: 75px; }
       .grid-4-col { grid-template-columns: repeat(2, 1fr); } 
       .manifiesto-box { grid-template-columns: 1fr; } 
     }
@@ -318,13 +328,11 @@
 </head>
 <body>
 
-  <!-- NAVEGACIÓN SUPERIOR CON SELLOS CORPORATIVOS -->
+  <!-- NAVEGACIÓN SUPERIOR LIMPIA -->
   <header>
     <div class="navbar">
       <div class="logo-title">
-        <img src="LOGO_DONCELLA.jpg" alt="Doncella" class="brand-seal" title="Origen: Bagà">
         <h1>EL RESCAT</h1>
-        <img src="LOGO_GALCERAN.jpg" alt="Galcerán de Pinós" class="brand-seal" title="Destino: Vila-seca">
       </div>
       <ul class="nav-links">
         <li><button onclick="mostrarSeccion('leyenda')" class="active" id="btn-leyenda">📜 La Leyenda</button></li>
@@ -335,21 +343,34 @@
     </div>
   </header>
 
-  <!-- BANNER HERO CON FONDO DEL PONT DE LA VILA -->
+  <!-- BANNER HERO COMPACTO CON LOGOS LATERALES Y ESCUDOS -->
   <section class="hero">
-    <h2>El Rescat de les 100 Donzelles</h2>
-    <p>Uniendo la historia medieval de Bagà con las costas de Vila-seca a través del deporte y el compañerismo.</p>
-    
-    <div class="hero-seals">
-      <div class="hero-seal-item">
-        <img src="LOGO_DONCELLA.jpg" alt="Doncella Bagà" class="hero-seal-img">
-        <span>Bagà</span>
+    <div class="hero-container">
+      
+      <!-- LOGO IZQUIERDO: LA DONCELLA -->
+      <img src="LOGO_DONCELLA.jpg" alt="Doncella de Bagà" class="hero-side-logo" title="La Doncella (Bagà)">
+
+      <div class="hero-text-content">
+        <h2>El Rescat de les 100 Donzelles</h2>
+        <p>Uniendo la historia medieval de Bagà con las costas de Vila-seca a través del deporte y el compañerismo.</p>
+        
+        <!-- MARCADORES CON ESCUDOS OFICIALES -->
+        <div class="hero-town-badges">
+          <div class="town-badge">
+            <img src="Escudo_Baga.png" alt="Escudo de Bagà" class="town-escudo">
+            <span>Bagà</span>
+          </div>
+          <span style="color: var(--secondary-color); font-size: 1.1rem;">➔</span>
+          <div class="town-badge">
+            <img src="Escudo_Vilaseca.png" alt="Escudo de Vila-seca" class="town-escudo">
+            <span>Vila-seca</span>
+          </div>
+        </div>
       </div>
-      <span style="color: var(--secondary-color); font-size: 1.2rem;">➔</span>
-      <div class="hero-seal-item">
-        <img src="LOGO_GALCERAN.jpg" alt="Galcerán Vila-seca" class="hero-seal-img">
-        <span>Vila-seca</span>
-      </div>
+
+      <!-- LOGO DERECHO: GALCERÁN DE PINÓS -->
+      <img src="LOGO_GALCERAN.jpg" alt="Galcerán de Pinós" class="hero-side-logo" title="Galcerán de Pinós (Vila-seca)">
+
     </div>
   </section>
 
@@ -360,10 +381,10 @@
     <article id="seccion-leyenda" class="seccion">
       <h2 class="titulo-seccion">📜 La Leyenda de las 100 Donzelles</h2>
       <p style="font-size: 1.1rem; margin-bottom: 15px;">
-        Hacia el año <strong>1147</strong>, el noble <strong>Galcerán de Pinós</strong> marchó a combatir a Almería a petición del Conde de Barcelona, cayendo prisionero durante 5 años. Para su liberación, los captores exigieron un cuantioso rescate en oro y, sobre todo, <strong>100 doncellas</strong> que debían marchar desde Bagà para embarcar en el Port de Salou.
+        Hacia el año <strong>1147</strong>, el noble <strong>Galcerán de Pinós</strong> marchó a combatir a Almería a petición del Conde de Barcelona, cayendo prisionero durante 5 años[cite: 3]. Para su liberación, los captores exigieron un cuantioso rescate en oro y, sobre todo, <strong>100 doncellas</strong> que debían marchar desde Bagà para embarcar en el Port de Salou[cite: 3].
       </p>
       <p style="font-size: 1.1rem; margin-bottom: 20px;">
-        En el término de Vila-seca, la comitiva se encontró milagrosamente con Galcerán, liberado por la intercesión de Sant Esteve. Desde el <em>C.E. Mountain Trail Vila-seca</em>, recreamos este camino histórico convirtiéndolo en un reto deportivo y cultural.
+        En el término de Vila-seca, la comitiva se encontró milagrosamente con Galcerán, liberado por la intercesión de Sant Esteve[cite: 3]. Desde el <em>C.E. Mountain Trail Vila-seca</em>, recreamos este camino histórico convirtiéndolo en un reto deportivo y cultural.
       </p>
 
       <!-- MANIFIESTO OFICIAL DEL EVENTO -->
@@ -371,17 +392,17 @@
         <div class="box-si">
           <h3>✅ EL RESCAT ES:</h3>
           <ul>
-            <li>Una ruta <strong>NO competitiva</strong> para conocer el territorio e historia.</li>
-            <li>Convivencia, cultura deportiva y superación personal.</li>
-            <li>Un reto propio contra ti mismo.</li>
+            <li>Una ruta <strong>NO competitiva</strong> para conocer el territorio e historia[cite: 4].</li>
+            <li>Convivencia, cultura deportiva y superación personal[cite: 4].</li>
+            <li>Un reto propio contra ti mismo[cite: 4].</li>
           </ul>
         </div>
         <div class="box-no">
           <h3>❌ EL RESCAT NO ES:</h3>
           <ul>
-            <li>Una carrera de velocidad.</li>
-            <li>Una competición entre participantes.</li>
-            <li>Una demostración frente a otros.</li>
+            <li>Una carrera de velocidad[cite: 4].</li>
+            <li>Una competición entre participantes[cite: 4].</li>
+            <li>Una demostración frente a otros[cite: 4].</li>
           </ul>
         </div>
       </div>
@@ -391,7 +412,7 @@
     <article id="seccion-ruta" class="seccion" style="display: none;">
       <h2 class="titulo-seccion">🗺️ Detalles de la Ruta (211 km)</h2>
       <p style="margin-bottom: 20px;">
-        Travesía de autosuficiencia dividida en <strong>11 etapas</strong> conectando el Pirineo con la Torre d'en Dolça en Vila-seca.
+        Travesía de autosuficiencia dividida en <strong>11 etapas</strong> conectando el Pirineo con la Torre d'en Dolça en Vila-seca[cite: 5, 7, 8].
       </p>
       
       <div class="grid-4-col" style="margin-bottom: 30px;">
@@ -424,17 +445,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr><td>1</td><td>Bagà ➔ Berga</td><td>30 km</td><td>Salida nocturna / Etapa dura (+1000m d+)</td></tr>
-          <tr><td>2</td><td>Berga ➔ Cardona</td><td>64 km</td><td>Paso por Sant Corneli</td></tr>
-          <tr><td>3</td><td>Cardona ➔ Pinós</td><td>81 km</td><td>Centro geográfico de Cataluña</td></tr>
-          <tr><td>4</td><td>Pinós ➔ Sant Pere Sallavinera</td><td>95 km</td><td>Tramo técnico con hidratación clave</td></tr>
-          <tr><td>5</td><td>St. Pere Sallavinera ➔ Igualada</td><td>120 km</td><td>Llegada a la comarca del Anoia</td></tr>
-          <tr><td>6</td><td>Igualada ➔ La Llacuna</td><td>142 km</td><td>Subida nocturna con frontales</td></tr>
-          <tr><td>7</td><td>La Llacuna ➔ Montagut</td><td>154 km</td><td>Sendero de montaña técnico</td></tr>
-          <tr><td>8</td><td>Montagut ➔ Santes Creus</td><td>166 km</td><td>Monasterio histórico Cisterciense</td></tr>
-          <tr><td>9</td><td>Santes Creus ➔ Renau</td><td>182 km</td><td>Paso de río y reagrupamiento</td></tr>
-          <tr><td>10</td><td>Renau ➔ Constantí ➔ Vila-seca</td><td>199 km</td><td>Entrada al Tarragonès</td></tr>
-          <tr><td>11</td><td>Vila-seca ➔ Piló Torre d'en Dolça</td><td><strong>211 km</strong></td><td><strong>Llegada triunfal al monolito histórico</strong></td></tr>
+          <tr><td>1</td><td>Bagà ➔ Berga</td><td>30 km</td><td>Salida nocturna / Etapa dura (+1000m d+)[cite: 8]</td></tr>
+          <tr><td>2</td><td>Berga ➔ Cardona</td><td>64 km</td><td>Paso por Sant Corneli[cite: 8]</td></tr>
+          <tr><td>3</td><td>Cardona ➔ Pinós</td><td>81 km</td><td>Centro geográfico de Cataluña[cite: 8]</td></tr>
+          <tr><td>4</td><td>Pinós ➔ Sant Pere Sallavinera</td><td>95 km</td><td>Tramo técnico con hidratación clave[cite: 8]</td></tr>
+          <tr><td>5</td><td>St. Pere Sallavinera ➔ Igualada</td><td>120 km</td><td>Llegada a la comarca del Anoia[cite: 8]</td></tr>
+          <tr><td>6</td><td>Igualada ➔ La Llacuna</td><td>142 km</td><td>Subida nocturna con frontales[cite: 8]</td></tr>
+          <tr><td>7</td><td>La Llacuna ➔ Montagut</td><td>154 km</td><td>Sendero de montaña técnico[cite: 8]</td></tr>
+          <tr><td>8</td><td>Montagut ➔ Santes Creus</td><td>166 km</td><td>Monasterio histórico Cisterciense[cite: 8]</td></tr>
+          <tr><td>9</td><td>Santes Creus ➔ Renau</td><td>182 km</td><td>Paso de río y reagrupamiento[cite: 8]</td></tr>
+          <tr><td>10</td><td>Renau ➔ Constantí ➔ Vila-seca</td><td>199 km</td><td>Entrada al Tarragonès[cite: 8]</td></tr>
+          <tr><td>11</td><td>Vila-seca ➔ Piló Torre d'en Dolça</td><td><strong>211 km</strong></td><td><strong>Llegada triunfal al monolito histórico</strong>[cite: 8]</td></tr>
         </tbody>
       </table>
     </article>
@@ -451,7 +472,7 @@
         <div class="card-edicion">
           <h4>1ª Edición (2023)</h4>
           <p style="color: var(--primary-color); font-weight: bold; font-size: 0.85rem;">🏃‍♂️ A Pie (Abierta)</p>
-          <p style="font-size: 0.9rem;">Primera convocatoria abierta oficial a caminantes y corredores.</p>
+          <p style="font-size: 0.9rem;">Primera convocatoria abierta oficial a caminantes y corredores[cite: 1].</p>
         </div>
         <div class="card-edicion">
           <h4>2ª Edición (2024)</h4>
@@ -516,7 +537,7 @@
   </main>
 
   <footer>
-    <p>© EL RESCAT - C.E. Mountain Trail Vila-seca</p>
+    <p>© EL RESCAT - C.E. Mountain Trail Vila-seca[cite: 1, 11]</p>
   </footer>
 
   <script>
