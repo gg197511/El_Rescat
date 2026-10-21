@@ -1,303 +1,629 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
-  <title>Club de Trail MTV</title>
-  <meta name="theme-color" content="#2e7d32">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Club MTV">
-
+  <title>EL RESCAT - La Ruta de les 100 Donzelles</title>
+  
   <style>
     :root {
-      --primary-color: #2e7d32;
-      --primary-hover: #1b5e20;
-      --dark-color: #1a1a1a;
-      --bg-color: #121212;
-      --card-bg: #ffffff;
-      --text-color: #212121;
+      --primary-color: #6b1d2f;    /* Granat / Borgonya Medieval */
+      --secondary-color: #d4af37;  /* Daurat / Àmbra */
+      --dark-color: #2b2b2b;       /* Fosc text */
+      --bg-light: #fdfbf7;         /* Fons càlid cremós */
+      --card-bg: #ffffff;          /* Blanc targetes */
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
+    body { 
+      background-color: var(--bg-light); 
+      color: var(--dark-color); 
+      line-height: 1.6; 
+    }
+
+    /* BARRA DE NAVEGACIÓ SUPERIOR */
+    header { 
+      background-color: var(--primary-color); 
+      color: white; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000; 
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+    }
+
+    .navbar { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 12px 20px; 
+    }
+
+    .logo-title h1 { 
+      font-size: 1.6rem; 
+      color: var(--secondary-color); 
+      letter-spacing: 1px; 
+    }
+
+    .nav-links { 
+      display: flex; 
+      list-style: none; 
+      gap: 10px; 
+    }
+
+    .nav-links button { 
+      background: none; 
+      border: none; 
+      color: white; 
+      font-size: 0.95rem; 
+      font-weight: 600; 
+      cursor: pointer; 
+      padding: 8px 12px; 
+      border-radius: 6px; 
+      transition: background 0.3s, color 0.3s; 
+    }
+
+    .nav-links button:hover, .nav-links button.active { 
+      background-color: rgba(212, 175, 55, 0.2); 
+      color: var(--secondary-color); 
+    }
+
+    /* BANNER HERO COMPACTE CON FONDO ENFOCADO EN LA PARTE SUPERIOR */
+    .hero { 
+      background: linear-gradient(rgba(107, 29, 47, 0.82), rgba(43, 43, 43, 0.88)), url('rescat-caravana-puente.jpg') top center/cover no-repeat; 
+      color: white; 
+      padding: 25px 20px; 
+      border-bottom: 4px solid var(--secondary-color); 
+    }
+
+    .hero-container {
+      max-width: 1150px;
+      margin: 0 auto;
       display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      padding: 15px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .main-container {
-      width: 100%;
-      max-width: 450px;
-      background: var(--card-bg);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-
-    .hero-banner {
-      position: relative;
-      width: 100%;
-      height: 180px;
-      background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.7)), url('Cabecera.jpg') center/cover no-repeat;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 20px;
-      color: #ffffff;
-    }
-
-    .hero-banner h1 {
-      font-size: 1.6rem;
-      font-weight: 800;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-    }
-
-    .hero-banner p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
-    }
-
-    .content-area {
-      padding: 20px;
-    }
-
-    /* GRID DE BOTONES GRANDES */
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
-    }
-
-    .grid-btn {
-      position: relative;
-      height: 140px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      display: flex;
-      align-items: flex-end;
-      padding: 12px;
-      text-decoration: none;
-      background-color: #2b2b2b;
-    }
-
-    .grid-btn:active {
-      transform: scale(0.97);
-    }
-
-    /* AJUSTE DE IMAGEN DENTRO DEL CONTENEDOR (10% MÁS GRANDE Y FIT COMPLETO) */
-    .grid-btn-bg {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-size: contain; /* Garantiza que encaje la silueta completa sin cortarse */
-      background-repeat: no-repeat;
-      background-position: center;
-      transform: scale(1.1); /* 10% más grande */
+    /* LOGOS 10% MÉS GRANS (132px) I DINS DEL CERCLE AMB OBJECT-FIT CONTAIN */
+    .hero-side-logo {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      border: 3px solid var(--secondary-color);
+      background-color: #ffffff;
+      object-fit: contain; /* Garanteix que la imatge sencera es vegi dins del cercle */
+      padding: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      flex-shrink: 0;
       transition: transform 0.3s ease;
     }
 
-    .grid-btn-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%);
+    .hero-side-logo:hover {
+      transform: scale(1.05);
     }
 
-    .grid-btn-text {
-      position: relative;
-      z-index: 2;
-      color: #ffffff;
-      text-align: left;
+    .hero-text-content {
+      flex: 1;
+      text-align: center;
     }
 
-    .grid-btn-text span {
-      font-size: 1.5rem;
-      display: block;
-      margin-bottom: 2px;
+    .hero h2 { 
+      font-size: 2.2rem; 
+      color: var(--secondary-color); 
+      margin-bottom: 6px; 
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7); 
     }
 
-    .grid-btn-text h2 {
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.2;
+    .hero p { 
+      font-size: 1rem; 
+      max-width: 650px; 
+      margin: 0 auto 10px auto; 
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7); 
     }
 
-    .btn-volver {
-      background: #f0f0f0;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-weight: bold;
-      color: #555;
-      cursor: pointer;
-      margin-bottom: 15px;
-      display: inline-flex;
+    /* MARCADORS AMB ESCUTS MUNICIPALS DE BAGÀ I VILA-SECA */
+    .hero-town-badges {
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 5px;
+      gap: 15px;
+      margin-top: 8px;
+    }
+
+    .town-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: bold;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--secondary-color);
     }
 
-    .banner-challenge {
-      background: linear-gradient(135deg, #6b1d2f, #2b2b2b);
-      color: white;
-      padding: 20px;
-      border-radius: 12px;
-      text-align: left;
+    .town-escudo {
+      width: 22px;
+      height: 26px;
+      object-fit: contain;
     }
 
-    .galeria-rescat {
+    /* CONTENIDOR PRINCIPAL */
+    main { 
+      max-width: 1200px; 
+      margin: 30px auto; 
+      padding: 0 20px; 
+      min-height: 500px; 
+    }
+
+    .seccion { 
+      background: var(--card-bg); 
+      padding: 35px; 
+      border-radius: 12px; 
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08); 
+      border-top: 4px solid var(--primary-color); 
+    }
+
+    .titulo-seccion { 
+      font-size: 1.8rem; 
+      color: var(--primary-color); 
+      margin-bottom: 20px; 
+      border-bottom: 2px solid var(--bg-light); 
+      padding-bottom: 10px; 
+    }
+
+    /* GALERIA HISTÒRICA ENRIQUIDA */
+    .galeria-llegenda {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 15px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
+      margin-top: 25px;
     }
 
-    .galeria-rescat img {
-      width: 100%;
-      height: 120px;
-      object-fit: cover;
+    .card-imatge-historia {
+      background: var(--bg-light);
+      border: 1px solid #e0d8c3;
       border-radius: 8px;
-      border: 1px solid #d4af37;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
+    }
+
+    .card-imatge-historia:hover {
+      transform: translateY(-4px);
+    }
+
+    .card-imatge-historia img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-imatge-historia p {
+      padding: 10px;
+      font-size: 0.85rem;
+      color: var(--dark-color);
+      text-align: center;
+      font-weight: 600;
+      background: #ffffff;
+    }
+
+    /* MANIFEST I TARGETES FILOSOFIA */
+    .manifiesto-box { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 20px; 
+      margin: 25px 0; 
+    }
+
+    .box-si { 
+      background: #e8f5e9; 
+      border-left: 5px solid #2e7d32; 
+      padding: 20px; 
+      border-radius: 8px; 
+    }
+
+    .box-no { 
+      background: #ffebee; 
+      border-left: 5px solid #c62828; 
+      padding: 20px; 
+      border-radius: 8px; 
+    }
+
+    .box-si h3 { color: #2e7d32; margin-bottom: 10px; }
+    .box-no h3 { color: #c62828; margin-bottom: 10px; }
+    .box-si ul, .box-no ul { padding-left: 20px; }
+
+    /* GRIDS DE CONTINGUT */
+    .grid-4-col { 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 20px; 
+      margin-top: 20px; 
+    }
+
+    .card-edicion { 
+      background: var(--bg-light); 
+      border-radius: 8px; 
+      padding: 20px; 
+      border: 1px solid #eee; 
+      transition: transform 0.2s ease; 
+    }
+
+    .card-edicion:hover { 
+      transform: translateY(-3px); 
+    }
+
+    /* TAULA D'ETAPES */
+    .tabla-etapas { 
+      width: 100%; 
+      border-collapse: collapse; 
+      margin-top: 20px; 
+      font-size: 0.95rem; 
+    }
+
+    .tabla-etapas th { 
+      background-color: var(--primary-color); 
+      color: white; 
+      padding: 12px; 
+      text-align: left; 
+    }
+
+    .tabla-etapas td { 
+      padding: 10px 12px; 
+      border-bottom: 1px solid #eee; 
+    }
+
+    .tabla-etapas tr:nth-child(even) { 
+      background-color: var(--bg-light); 
+    }
+
+    /* FORMULARI D'INSCRIPCIÓ */
+    .form-grid { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 20px; 
+    }
+
+    .form-group { 
+      margin-bottom: 15px; 
+    }
+
+    .form-group.full-width { 
+      grid-column: span 2; 
+    }
+
+    label { 
+      display: block; 
+      font-weight: 600; 
+      margin-bottom: 5px; 
+      color: var(--dark-color); 
+    }
+
+    input, select, textarea { 
+      width: 100%; 
+      padding: 12px; 
+      border: 1px solid #ccc; 
+      border-radius: 6px; 
+      font-size: 1rem; 
+    }
+
+    .btn-submit { 
+      grid-column: span 2; 
+      padding: 15px; 
+      background-color: var(--primary-color); 
+      color: white; 
+      font-size: 1.1rem; 
+      font-weight: bold; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      transition: background 0.3s; 
+    }
+
+    .btn-submit:hover { 
+      background-color: #521423; 
+    }
+
+    /* FOOTER */
+    footer { 
+      background-color: var(--dark-color); 
+      color: #aaa; 
+      text-align: center; 
+      padding: 25px; 
+      margin-top: 60px; 
+      font-size: 0.9rem; 
+    }
+
+    /* ADAPTACIÓ RESPONSIVE */
+    @media (max-width: 850px) {
+      .hero-container { flex-direction: column; }
+      .hero-side-logo { width: 100px; height: 100px; }
+      .grid-4-col { grid-template-columns: repeat(2, 1fr); } 
+      .manifiesto-box { grid-template-columns: 1fr; } 
+    }
+
+    @media (max-width: 600px) { 
+      .navbar { flex-direction: column; gap: 10px; } 
+      .nav-links { flex-wrap: wrap; justify-content: center; } 
+      .grid-4-col { grid-template-columns: 1fr; } 
+      .form-grid { grid-template-columns: 1fr; } 
+      .form-group.full-width, .btn-submit { grid-column: span 1; } 
     }
   </style>
 </head>
 <body>
 
-  <div class="main-container">
-    <div class="hero-banner">
-      <h1 id="tituloCabecera">Club de Trail MTV</h1>
-      <p id="subtituloCabecera">Pasión por la naturaleza y la aventura</p>
-    </div>
-
-    <div class="content-area">
-      
-      <!-- MENU GRID PRINCIPAL -->
-      <div id="pantallaMenuGrid" class="menu-grid">
-        
-        <button class="grid-btn" onclick="abrirSeccion('noticias')">
-          <div class="grid-btn-bg" style="background-image: url('News.jpg');"></div>
-          <div class="grid-btn-overlay"></div>
-          <div class="grid-btn-text">
-            <span>📰</span>
-            <h2>Noticias del Club</h2>
-          </div>
-        </button>
-
-        <button class="grid-btn" onclick="abrirSeccion('socio')">
-          <div class="grid-btn-bg" style="background-image: url('Socios.jpg');"></div>
-          <div class="grid-btn-overlay"></div>
-          <div class="grid-btn-text">
-            <span>👤</span>
-            <h2>Socios</h2>
-          </div>
-        </button>
-
-        <button class="grid-btn" onclick="abrirSeccion('challenge')">
-          <div class="grid-btn-bg" style="background-image: url('Challenge.jpg');"></div>
-          <div class="grid-btn-overlay"></div>
-          <div class="grid-btn-text">
-            <span>🏆</span>
-            <h2>Sección Challenge</h2>
-          </div>
-        </button>
-
-        <button class="grid-btn" onclick="abrirSeccion('historia')">
-          <div class="grid-btn-bg" style="background-image: url('Historia.jpg');"></div>
-          <div class="grid-btn-overlay"></div>
-          <div class="grid-btn-text">
-            <span>🌲</span>
-            <h2>Nuestra Historia</h2>
-          </div>
-        </button>
-
-        <button class="grid-btn" onclick="abrirSeccion('carreras')">
-          <div class="grid-btn-bg" style="background-image: url('Carreras.jpg');"></div>
-          <div class="grid-btn-overlay"></div>
-          <div class="grid-btn-text">
-            <span>🏃</span>
-            <h2>Carreras y Salidas de Club</h2>
-          </div>
-        </button>
-
-        <!-- BOTÓN EL RESCAT CON IMAGEN AJUSTADA Y SIN CORTAR SILUETA -->
-        <button class="grid-btn" onclick="abrirSeccion('rescat')">
-          <div class="grid-btn-bg" style="background-image: url('pilo-del-rescat-2_18_800x1032.jpeg');"></div>
-          <div class="grid-btn-overlay"></div>
-          <div class="grid-btn-text">
-            <span>📜</span>
-            <h2>El Rescat 100 Donzelles</h2>
-          </div>
-        </button>
-
+  <!-- NAVEGACIÓ SUPERIOR -->
+  <header>
+    <div class="navbar">
+      <div class="logo-title">
+        <h1>EL RESCAT</h1>
       </div>
+      <ul class="nav-links">
+        <li><button onclick="mostrarSeccion('leyenda')" class="active" id="btn-leyenda">📜 La Llegenda</button></li>
+        <li><button onclick="mostrarSeccion('ruta')" id="btn-ruta">🗺️ La Ruta (211km)</button></li>
+        <li><button onclick="mostrarSeccion('ediciones')" id="btn-ediciones">📸 Edicions Anteriors</button></li>
+        <li><button onclick="mostrarSeccion('registro')" id="btn-registro">📝 Inscripció</button></li>
+      </ul>
+    </div>
+  </header>
 
-      <!-- SECCIÓN EL RESCAT TOTALMENTE ENRIQUECIDA -->
-      <div id="pantallaRescat" style="display: none;">
-        <button class="btn-volver" onclick="volverAlMenu()">← Volver al Menú</button>
+  <!-- BANNER HERO COMPACTE -->
+  <section class="hero">
+    <div class="hero-container">
+      
+      <!-- LOGO ESQUERRA: LA DONCELLA -->
+      <img src="LOGO_DONCELLA.jpg" alt="Doncella de Bagà" class="hero-side-logo" title="La Doncella (Bagà)">
+
+      <div class="hero-text-content">
+        <h2>El Rescat de les 100 Donzelles</h2>
+        <p>Unint la història medieval de Bagà amb les costes de Vila-seca a través de l'esport i la germanor.</p>
         
-        <div class="banner-challenge" style="border-left: 5px solid #d4af37;">
-          <h2 style="color: #d4af37; font-size: 1.4rem; margin-bottom: 8px;">📜 El Rescat de les 100 Donzelles</h2>
-          <p style="margin-bottom: 12px; font-size: 0.88rem; color: #fdfbf7; line-height: 1.5;">
-            Travesía histórica e interurbana de <strong>211 km en 11 etapas</strong> conectando Bagà con la Torre d'en Dolça en Vila-seca.
-          </p>
-
-          <h3 style="color: #d4af37; font-size: 1rem; margin-top: 15px; margin-bottom: 6px;">🏛️ La Leyenda Histórica</h3>
-          <p style="font-size: 0.85rem; color: #e0e0e0; line-height: 1.5; margin-bottom: 10px;">
-            En 1147, tras la captura del noble <strong>Galceran IV de Pinós</strong> en Almería, los sarracenos exigieron un rescate de 100 doncellas vírgenes, 100 caballos blancos y 100 piezas de oro. Gracias al milagro de <strong>Sant Esteve</strong>, los caballeros fueron liberados en Salou/Vila-seca antes de consumarse la entrega.
-          </p>
-
-          <!-- GALERÍA VISUAL DE IMÁGENES HISTÓRICAS -->
-          <div class="galeria-rescat">
-            <img src="retablo-liberacion-galceran.jpg" alt="Liberación de Galceran por Sant Esteve">
-            <img src="rescat-vidriera-1945.jpg" alt="Vidriera Rescat 1945">
-            <img src="rescat-caravana-puente.jpg" alt="Caravana del Rescat">
-            <img src="estatua-galceran-pinos.jpg" alt="Estatua de Galceran de Pinós">
+        <!-- MARCADORS AMB ESCUTS OFICIALS -->
+        <div class="hero-town-badges">
+          <div class="town-badge">
+            <img src="Escudo_Baga.png" alt="Escut de Bagà" class="town-escudo">
+            <span>Bagà</span>
           </div>
-
-          <button onclick="window.location.href='https://gg197511.github.io/el-rescat/'" class="btn-submit" style="background:#d4af37; color:#6b1d2f; font-weight:bold; margin-top: 15px;">
-            Abrir Web Oficial El Rescat 🚀
-          </button>
+          <span style="color: var(--secondary-color); font-size: 1.1rem;">➔</span>
+          <div class="town-badge">
+            <img src="Escudo_Vilaseca.png" alt="Escut de Vila-seca" class="town-escudo">
+            <span>Vila-seca</span>
+          </div>
         </div>
       </div>
 
-      <!-- RESTO DE PANTALLAS MANTENIDAS -->
-      <div id="pantallaNoticias" style="display: none;"><button class="btn-volver" onclick="volverAlMenu()">← Volver al Menú</button></div>
-      <div id="pantallaSocio" style="display: none;"><button class="btn-volver" onclick="volverAlMenu()">← Volver al Menú</button></div>
-      <div id="pantallaChallenge" style="display: none;"><button class="btn-volver" onclick="volverAlMenu()">← Volver al Menú</button></div>
-      <div id="pantallaHistoria" style="display: none;"><button class="btn-volver" onclick="volverAlMenu()">← Volver al Menú</button></div>
-      <div id="pantallaCarreras" style="display: none;"><button class="btn-volver" onclick="volverAlMenu()">← Volver al Menú</button></div>
+      <!-- LOGO DRETA: GALCERAN DE PINÓS -->
+      <img src="LOGO_GALCERAN.jpg" alt="Galceran de Pinós" class="hero-side-logo" title="Galceran de Pinós (Vila-seca)">
 
     </div>
-  </div>
+  </section>
+
+  <!-- CONTINGUT PRINCIPAL -->
+  <main>
+
+    <!-- SECCIÓ 1: LA LLEGENDA I MANIFEST -->
+    <article id="seccion-leyenda" class="seccion">
+      <h2 class="titulo-seccion">📜 La Llegenda de les 100 Donzelles</h2>
+      
+      <p style="font-size: 1.05rem; margin-bottom: 15px; line-height: 1.7;">
+        Cap a l'any <strong>1147</strong>, el noble cavaller <strong>Galceran IV de Pinós</strong> i el seu fidel vassall <strong>Sanc</strong> van partir cap a la conquesta d'Almeria sota les ordres del comte Ramon Berenguer IV. Durant la batalla, van ser fets presoners per les forces sarraïnes i empresonats durant cinc anys[cite: 3].
+      </p>
+
+      <p style="font-size: 1.05rem; margin-bottom: 15px; line-height: 1.7;">
+        Per concedir la seva llibertat, el rei de les terres d'Almeria va exigir un rescat desmesurat i exorbitant: <strong>100 donzelles verges</strong> de la Baronia de Pinós (Bagà), <strong>100 cavalls blancs</strong>, <strong>100 bous o vaques parides</strong> i <strong>100 peces de fina tela d'or i seda</strong>[cite: 3].
+      </p>
+
+      <p style="font-size: 1.05rem; margin-bottom: 20px; line-height: 1.7;">
+        Quan la dolorosa caravana de les donzelles i el ramat va recórrer tota Catalunya des del Pirineu fins a la costa de Salou i Vila-seca per lliurar el pagament, va esdevenir el miracle[cite: 3]: la nit abans del lliurament, <strong>Sant Esteve</strong> i <strong>Sant Genís</strong> es van aparèixer a la presó d'Almeria, van trencar les cadenes de Galceran i Sanc i els van transportar de forma miraculosa fins a Vila-seca[cite: 3]. En trobar-se els cavallers alliberats amb la comitiva al territori de Vila-seca (on avui dia s'erigeix el monument del <em>Piló del Rescat</em>), la caravana de les 100 donzelles va poder emprendre el camí de retorn sana i salva cap a les muntanyes de Bagà[cite: 3, 8].
+      </p>
+
+      <!-- GALERÍA D'IMATGES HISTÒRIQUES DEL RESCAT -->
+      <h3 style="color: var(--primary-color); margin-top: 25px; font-size: 1.2rem;">🖼️ Galeria Històrica i Cultural:</h3>
+      <div class="galeria-llegenda">
+        <div class="card-imatge-historia">
+          <img src="rescat-batalla-almeria.jpg" alt="Batalla d'Almeria 1147">
+          <p>La Batalla d'Almeria (1147)[cite: 3, 17]</p>
+        </div>
+        <div class="card-imatge-historia">
+          <img src="rescat-caravana-puente.jpg" alt="Caravana de les 100 Donzelles">
+          <p>La Caravana de les 100 Donzelles al Pont[cite: 3, 15]</p>
+        </div>
+        <div class="card-imatge-historia">
+          <img src="retablo-liberacion-galceran.jpg" alt="Alliberament per Sant Esteve">
+          <p>Miracle de Sant Esteve (Retaule Gòtic)[cite: 3, 19]</p>
+        </div>
+        <div class="card-imatge-historia">
+          <img src="rescat-vidriera-1945.jpg" alt="Vitrall Commemoratiu de 1945">
+          <p>Vitrall Commemoratiu d'El Rescat (1945)[cite: 3, 16]</p>
+        </div>
+        <div class="card-imatge-historia">
+          <img src="estatua-galceran-pinos.jpg" alt="Estàtua de Galceran de Pinós">
+          <p>Galceran IV de Pinós (Bagà)[cite: 18]</p>
+        </div>
+        <div class="card-imatge-historia">
+          <img src="gegants-rescat-baga.jpg" alt="Gegants de Bagà">
+          <p>Gegants Tradicionals de Bagà[cite: 14]</p>
+        </div>
+      </div>
+
+      <!-- MANIFEST OFICIAL DE L'ESDEVENIMENT -->
+      <h3 style="color: var(--primary-color); margin-top: 30px; font-size: 1.2rem;">📜 Manifest de la Travessea:</h3>
+      <div class="manifiesto-box">
+        <div class="box-si">
+          <h3>✅ EL RESCAT ÉS:</h3>
+          <ul>
+            <li>Una ruta <strong>NO competitiva</strong> per conèixer el territori i la història[cite: 4].</li>
+            <li>Convivència, cultura esportiva i superació personal[cite: 4].</li>
+            <li>Un repte propi contra tu mateix[cite: 4].</li>
+          </ul>
+        </div>
+        <div class="box-no">
+          <h3>❌ EL RESCAT NO ÉS:</h3>
+          <ul>
+            <li>Una cursa de velocitat[cite: 4].</li>
+            <li>Una competició entre participants[cite: 4].</li>
+            <li>Una demostració davant d'altres[cite: 4].</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <!-- SECCIÓ 2: LA RUTA (211 KM - 11 ETAPES) -->
+    <article id="seccion-ruta" class="seccion" style="display: none;">
+      <h2 class="titulo-seccion">🗺️ Detalls de la Ruta (211 km)</h2>
+      <p style="margin-bottom: 20px;">
+        Travessea d'autosuficiència dividida en <strong>11 etapes</strong> connectant el Pirineu amb la Torre d'en Dolça a Vila-seca[cite: 5, 7, 8].
+      </p>
+      
+      <div class="grid-4-col" style="margin-bottom: 30px;">
+        <div class="card-edicion">
+          <h3>🏃‍♂️ A Peu</h3>
+          <p>Senderisme i Trail per etapes amb punts de reagrupament.</p>
+        </div>
+        <div class="card-edicion">
+          <h3>🚵‍♂️ BTT / Gravel</h3>
+          <p>Camins forestals i pistes de muntanya acondicionades.</p>
+        </div>
+        <div class="card-edicion">
+          <h3>🚴‍♂️ Bici de Carretera</h3>
+          <p>Vies secundàries panoràmiques creuant ports emblemàtics.</p>
+        </div>
+        <div class="card-edicion">
+          <h3>🏨 Allotjaments & Restauració</h3>
+          <p>Punts de descans, hostals, refugis i restaurants recomanats en ruta.</p>
+        </div>
+      </div>
+
+      <h3 style="color: var(--primary-color); margin-top: 25px;">📍 Desglossament de les 11 Etapes Oficials:</h3>
+      <table class="tabla-etapas">
+        <thead>
+          <tr>
+            <th>Etapa</th>
+            <th>Tram</th>
+            <th>Km Total</th>
+            <th>Destacat / Comentari</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Bagà ➔ Berga</td><td>30 km</td><td>Sortida nocturna / Etapa dura (+1000m d+)[cite: 8]</td></tr>
+          <tr><td>2</td><td>Berga ➔ Cardona</td><td>64 km</td><td>Pas per Sant Corneli[cite: 8]</td></tr>
+          <tr><td>3</td><td>Cardona ➔ Pinós</td><td>81 km</td><td>Centre geogràfic de Catalunya[cite: 8]</td></tr>
+          <tr><td>4</td><td>Pinós ➔ Sant Pere Sallavinera</td><td>95 km</td><td>Tram tècnic amb hidratació clau[cite: 8]</td></tr>
+          <tr><td>5</td><td>St. Pere Sallavinera ➔ Igualada</td><td>120 km</td><td>Arribada a la comarca de l'Anoia[cite: 8]</td></tr>
+          <tr><td>6</td><td>Igualada ➔ La Llacuna</td><td>142 km</td><td>Pujada nocturna amb frontals[cite: 8]</td></tr>
+          <tr><td>7</td><td>La Llacuna ➔ Montagut</td><td>154 km</td><td>Sender de muntanya tècnic[cite: 8]</td></tr>
+          <tr><td>8</td><td>Montagut ➔ Santes Creus</td><td>166 km</td><td>Monestir històric Cistercenc[cite: 8]</td></tr>
+          <tr><td>9</td><td>Santes Creus ➔ Renau</td><td>182 km</td><td>Pas de riu i reagrupament[cite: 8]</td></tr>
+          <tr><td>10</td><td>Renau ➔ Constantí ➔ Vila-seca</td><td>199 km</td><td>Entrada al Tarragonès[cite: 8]</td></tr>
+          <tr><td>11</td><td>Vila-seca ➔ Piló Torre d'en Dolça</td><td><strong>211 km</strong></td><td><strong>Arribada triomfal al monument històric</strong>[cite: 8]</td></tr>
+        </tbody>
+      </table>
+    </article>
+
+    <!-- SECCIÓ 3: EDICIONS ANTERIORS -->
+    <article id="seccion-ediciones" class="seccion" style="display: none;">
+      <h2 class="titulo-seccion">📸 Història de les Edicions</h2>
+      <div class="grid-4-col">
+        <div class="card-edicion">
+          <h4>Edició 0 (2022)</h4>
+          <p style="color: var(--primary-color); font-weight: bold; font-size: 0.85rem;">📍 Reconeixement</p>
+          <p style="font-size: 0.9rem;">Validació del traçat original per la directiva del club.</p>
+        </div>
+        <div class="card-edicion">
+          <h4>1ª Edició (2023)</h4>
+          <p style="color: var(--primary-color); font-weight: bold; font-size: 0.85rem;">🏃‍♂️ A Peu (Oberta)</p>
+          <p style="font-size: 0.9rem;">Primera convocatòria oberta oficial a caminants i corredors[cite: 1].</p>
+        </div>
+        <div class="card-edicion">
+          <h4>2ª Edició (2024)</h4>
+          <p style="color: var(--primary-color); font-weight: bold; font-size: 0.85rem;">🏃‍♂️ Consolidació A Peu</p>
+          <p style="font-size: 0.9rem;">Gran participació de socis completant els 211 km.</p>
+        </div>
+        <div class="card-edicion">
+          <h4>3ª Edició (2025)</h4>
+          <p style="color: var(--primary-color); font-weight: bold; font-size: 0.85rem;">🚴‍♂️ Carretera</p>
+          <p style="font-size: 0.9rem;">Primera edició cicloturista de carretera fins al mar.</p>
+        </div>
+      </div>
+
+      <!-- BANNER PRÒXIMA EDICIÓ BTT -->
+      <div style="margin-top: 25px; background: #fff8e1; border-left: 4px solid var(--secondary-color); padding: 18px; border-radius: 8px;">
+        <h4 style="color: var(--dark-color); margin-bottom: 6px; font-size: 1.1rem;">🚵‍♀️ Pròxima Edició: Cap a la BTT!</h4>
+        <p style="font-size: 0.95rem; color: #444; line-height: 1.5;">
+          Després d'una pausa tècnica el 2026, ens preparem amb entusiasme per llançar la nova edició en modalitat <strong>BTT / Mountain Bike</strong>. Mantenta't atent a les inscripcions!
+        </p>
+      </div>
+    </article>
+
+    <!-- SECCIÓ 4: INSCRIPCIÓ / REGISTRE -->
+    <article id="seccion-registro" class="seccion" style="display: none;">
+      <h2 class="titulo-seccion">📝 Formulari de Registre</h2>
+      <p style="margin-bottom: 20px;">Inscriu-te per participar en la pròxima edició d' "EL RESCAT".</p>
+
+      <form id="formRescat" class="form-grid">
+        <div class="form-group">
+          <label for="nombreCompleto">Nom i Cognoms (*):</label>
+          <input type="text" id="nombreCompleto" required placeholder="El teu nom complet">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correu Electrònic (*):</label>
+          <input type="email" id="email" required placeholder="el-teu@correu.com">
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Telèfon Mòbil (*):</label>
+          <input type="tel" id="telefono" required placeholder="600000000">
+        </div>
+
+        <div class="form-group">
+          <label for="modalidad">Modalitat desitjada (*):</label>
+          <select id="modalidad" required>
+            <option value="Pie">A Peu (Senderisme / Trail)</option>
+            <option value="BTT">BTT / Mountain Bike</option>
+            <option value="Carretera">Bici de Carretera</option>
+          </select>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="comentarios">Nom de l'Equip / Autocaravana / Observacions:</label>
+          <textarea id="comentarios" rows="3" placeholder="Indica si vens en equip o detalls logístics..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Enviar Registre</button>
+      </form>
+    </article>
+
+  </main>
+
+  <footer>
+    <p>© EL RESCAT - C.E. Mountain Trail Vila-seca[cite: 1, 11]</p>
+  </footer>
 
   <script>
-    function abrirSeccion(seccion) {
-      document.getElementById('pantallaMenuGrid').style.display = 'none';
-      document.getElementById('pantallaRescat').style.display = 'none';
+    function mostrarSeccion(id) {
+      document.getElementById('seccion-leyenda').style.display = 'none';
+      document.getElementById('seccion-ruta').style.display = 'none';
+      document.getElementById('seccion-ediciones').style.display = 'none';
+      document.getElementById('seccion-registro').style.display = 'none';
 
-      if (seccion === 'rescat') {
-        document.getElementById('pantallaRescat').style.display = 'block';
-      }
-    }
+      document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
 
-    function volverAlMenu() {
-      document.getElementById('pantallaRescat').style.display = 'none';
-      document.getElementById('pantallaMenuGrid').style.display = 'grid';
+      document.getElementById('seccion-' + id).style.display = 'block';
+      document.getElementById('btn-' + id).classList.add('active');
     }
   </script>
 </body>
